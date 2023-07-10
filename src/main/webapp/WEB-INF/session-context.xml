@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+    	http://www.springframework.org/schema/beans/spring-beans.xsd
+    	http://www.springframework.org/schema/context
+    	http://www.springframework.org/schema/context/spring-context.xsd
+    	http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+	<!-- Se indica a Spring, desde que paquete debe proceder a escanear posibles componentes (Components, beans, controllers etc). Es importante que todo lo que desees que spring escanee esté bajo la ruta que se indica aquí -->
+	<context:component-scan base-package="es.dsw" />
+
+
+	<mvc:annotation-driven/>
+	
+	<!-- Recordar que por defecto spring corta el acceso a los recursos. Aquí le damos permisos a todo lo que cuelga bajo /styles e /img. Aunque en este proyecto
+	     se hace uso de Spring Security y eso significa que aún haciendo esto, el acceso no está garantizado. (Ver SecurityAppConfig.java)-->
+	<mvc:resources mapping="/styles/**" location="/styles/" />
+	<mvc:resources mapping="/img/**" location="/img/" />
+	<mvc:resources mapping="/js/**" location="/js/" />
+	<mvc:resources mapping="/jqueryUI/**" location="/jqueryUI/" />
+
+	<!-- Se indica la ubicación de las vistas y la extensión de las mismas. -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" /> 
+	</bean>
+	
+</beans>
